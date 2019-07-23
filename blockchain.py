@@ -84,7 +84,10 @@ while True:
 
     else:
         print('Input was invalid, please pick a value from the list')
-    print('Choice registered!')
+
+    if not verify_chain():
+        print('Invalid blockchain!')
+        break
 
 
 print('Done!')
