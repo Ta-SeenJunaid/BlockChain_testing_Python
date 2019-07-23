@@ -28,6 +28,31 @@ def print_blockchain_elements():
         print('Outputting Block')
         print(block)
 
+def verify_chain():
+    block_index = 0
+    is_valid = True
+
+    for block in blockchain:
+        if block_index == 0:
+            block_index +=1
+            continue
+
+        elif block[0] == blockchain[block_index-1]:
+            is_valid = True
+
+        else:
+            is_valid = False
+            break
+
+        block_index +=1
+        return is_valid
+
+
+
+
+
+
+
 
 tx_amount = get_transaction_value()
 add_value(tx_amount)
