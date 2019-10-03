@@ -8,7 +8,7 @@ def get_last_blockchain_value():
 
 
 
-def add_value(transaction_amount, last_transaction=[1]):
+def add_transaction(transaction_amount, last_transaction=[1]):
 
     if last_transaction == None:
         last_transaction = [1]
@@ -27,38 +27,35 @@ def print_blockchain_elements():
     for block in blockchain:
         print('Outputting Block')
         print(block)
+    else:
+        print('-'*20)
+
 
 def verify_chain():
-    block_index = 0
+
     is_valid = True
 
-    for block in blockchain:
+    for block_index in range(len(blockchain)):
         if block_index == 0:
-            block_index +=1
             continue
 
-        elif block[0] == blockchain[block_index-1]:
+        # Check the previous block (the entire one) vs the first element of the current block
+
+        elif blockchain[block_index][0] == blockchain[block_index - 1]:
+
             is_valid = True
 
         else:
+
             is_valid = False
             break
 
-        block_index +=1
-        return is_valid
 
+    return is_valid
 
+waiting_for_input = True
 
-
-
-
-
-
-tx_amount = get_transaction_value()
-add_value(tx_amount)
-
-
-while True:
+while waiting_for_input:
     print('Please choose')
     print('1: Add a new transaction')
     print('2: Output the blockchains blocks')
@@ -69,7 +66,7 @@ while True:
 
     if user_choice == '1':
         tx_amount = get_transaction_value()
-        add_value(tx_amount, get_last_blockchain_value())
+        add_transaction(tx_amount, get_last_blockchain_value())
 
     elif user_choice == '2':
         print_blockchain_elements()
@@ -80,7 +77,7 @@ while True:
 
 
     elif user_choice == 'q':
-        break
+        waiting_for_input = False
 
     else:
         print('Input was invalid, please pick a value from the list')
@@ -88,6 +85,9 @@ while True:
     if not verify_chain():
         print('Invalid blockchain!')
         break
+
+else:
+    print('User left!')
 
 
 print('Done!')
