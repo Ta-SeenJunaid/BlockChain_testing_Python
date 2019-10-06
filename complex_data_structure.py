@@ -1,6 +1,6 @@
 blockchain = []
 open_transactions = []
-owner = 'Max'
+owner = 'Junaid'
 
 def get_last_blockchain_value():
 
@@ -10,7 +10,7 @@ def get_last_blockchain_value():
 
 
 
-def add_transaction(sender, recipient, amount=1.0):
+def add_transaction(recipient, sender = owner, amount=1.0):
 
     transaction = {
         'sender':sender,
@@ -83,7 +83,9 @@ while waiting_for_input:
 
     if user_choice == '1':
         tx_data = get_transaction_value()
-        add_transaction(tx_amount, get_last_blockchain_value())
+        recipient, amount = tx_data
+        add_transaction(recipient, amount=amount)
+        print(open_transactions)
 
     elif user_choice == '2':
         print_blockchain_elements()
